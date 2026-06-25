@@ -26,6 +26,7 @@
             </a>
             <div class="flex gap-4 text-sm font-medium">
                 <a href="/" class="text-orange-500">Menu</a>
+                <a href="/order-status" class="text-gray-600 hover:text-orange-500">Cek Pesanan</a>
                 <livewire:cart-counter />
             </div>
         </div>

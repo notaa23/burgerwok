@@ -12,19 +12,25 @@ class MenuCatalog extends Component
     public $selectedCategory = null;
     public $search = '';
 
-    public function addToCart($menuId)
+    protected function getListeners()
     {
-        $menu = Menu::find($menuId);
+        return [
+            'addToCartCustom' => 'handleAddToCart',
+        ];
+    }
+
+    public function handleAddToCart($menuId, $name, $price, $qty, $spiceLevel, $toppings, $notes)
+    {
         $cart = app(CartService::class);
         
         $cart->add(
             $menuId,
-            $menu->name,
-            $menu->base_price,
-            1,
-            ['id' => 1, 'name' => 'Tidak Pedas'],
-            [],
-            ''
+            $name,
+            $price,
+            $qty,
+            $spiceLevel,
+            $toppings,
+            $notes
         );
         
         $this->dispatch('cartUpdated');
