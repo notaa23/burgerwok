@@ -6,6 +6,7 @@ use App\Livewire\CartPage;
 use App\Livewire\CheckoutPage;
 use App\Livewire\PaymentPage;
 use App\Livewire\OrderStatusPage;
+use App\Http\Controllers\MidtransWebhookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', MenuCatalog::class)->name('home');
+Route::post('/midtrans-callback', [MidtransWebhookController::class, 'handle']);
 Route::get('/cart', CartPage::class)->name('cart');
 Route::get('/checkout', CheckoutPage::class)->name('checkout');
 Route::get('/payment/{orderNumber}', PaymentPage::class)->name('payment');

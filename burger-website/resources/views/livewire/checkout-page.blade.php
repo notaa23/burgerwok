@@ -70,26 +70,21 @@
                         <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-sm">💳</span>
                         Metode Pembayaran
                     </h2>
-                    <div class="grid grid-cols-3 gap-3">
+                    <div class="grid grid-cols-2 gap-3">
                         <label class="cursor-pointer">
-                            <input type="radio" wire:model="paymentMethod" value="qris" class="hidden peer">
+                            <input type="radio" wire:model="paymentMethod" value="midtrans" class="hidden peer">
                             <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 text-center hover:border-orange-300 transition-all duration-200 group">
-                                <div class="text-3xl mb-2">📱</div>
-                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">QRIS</p>
-                            </div>
-                        </label>
-                        <label class="cursor-pointer">
-                            <input type="radio" wire:model="paymentMethod" value="transfer" class="hidden peer">
-                            <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 text-center hover:border-orange-300 transition-all duration-200 group">
-                                <div class="text-3xl mb-2">🏦</div>
-                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">Transfer</p>
+                                <div class="text-3xl mb-2">💳</div>
+                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">Bayar Online</p>
+                                <p class="text-xs text-gray-400 mt-1">QRIS, Transfer, e-Wallet</p>
                             </div>
                         </label>
                         <label class="cursor-pointer">
                             <input type="radio" wire:model="paymentMethod" value="cod" class="hidden peer">
                             <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 text-center hover:border-orange-300 transition-all duration-200 group">
                                 <div class="text-3xl mb-2">💵</div>
-                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">COD</p>
+                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">Bayar di Tempat</p>
+                                <p class="text-xs text-gray-400 mt-1">Siapkan uang pas (COD)</p>
                             </div>
                         </label>
                     </div>

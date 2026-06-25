@@ -28,7 +28,9 @@ class MenuForm
                     ->required()
                     ->numeric(),
                 FileUpload::make('image')
-                    ->image(),
+                    ->image()
+                    ->disk('public')
+                    ->directory('menus'),
                 Toggle::make('is_available')
                     ->required(),
                 Toggle::make('is_featured')

@@ -20,7 +20,7 @@ class CheckoutPage extends Component
     protected $rules = [
         'name' => 'required|min:3',
         'whatsapp' => 'required|regex:/^08[0-9]{8,11}$/',
-        'paymentMethod' => 'required|in:qris,transfer,cod',
+        'paymentMethod' => 'required|in:midtrans,cod',
     ];
 
     public function mount()
@@ -81,6 +81,39 @@ class CheckoutPage extends Component
         // Kosongkan cart
         $cart->clear();
         $this->dispatch('cartUpdated');
+
+        if ($this->paymentMethod === 'midtrans') {
+            // Set konfigurasi Midtrans
+            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY', 'Mid-server-wLgR_nQZ6oORrw9hazXoE39Y');
+            \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
+            \Midtrans\Config::$isSanitized = true;
+            \Midtrans\Config::$is3ds = true;
+
+            $params = [
+                'transaction_details' => [
+                    'order_id' => $order->order_number,
+                    'gross_amount' => $order->total,
+                ],
+                'customer_details' => [
+                    'first_name' => $order->customer_name,
+                    'phone' => $order->customer_phone,
+                ],
+            ];
+
+            try {
+                $snapToken = \Midtrans\Snap::getSnapToken($params);
+                $order->update(['snap_token' => $snapToken]);
+                return redirect('/payment/' . $order->order_number);
+            } catch (\Throwable $e) {
+                $order->update(['notes' => 'ERROR_MIDTRANS: ' . $e->getMessage()]);
+                \Illuminate\Support\Facades\Log::error('Midtrans Snap Error: ' . $e->getMessage(), [
+                    'server_key' => env('MIDTRANS_SERVER_KEY'),
+                    'is_production' => env('MIDTRANS_IS_PRODUCTION')
+                ]);
+                session()->flash('error', 'Gagal memproses Midtrans: ' . $e->getMessage());
+                return redirect('/payment/' . $order->order_number);
+            }
+        }
 
         return redirect('/order-success/' . $order->order_number);
     }
