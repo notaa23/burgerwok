@@ -82,7 +82,7 @@
                             class="px-5 py-2.5 bg-gray-100 text-gray-600 rounded-xl text-sm font-semibold hover:bg-gray-200 transition-colors">
                         🗑️ Kosongkan
                     </button>
-                    <a href="/checkout"
+                    <a href="/checkout" wire:navigate
                        class="flex-1 px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-sm font-bold text-center transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
                         Checkout →
                     </a>
@@ -95,7 +95,7 @@
                 <div class="text-7xl mb-4">🛒</div>
                 <h3 class="text-xl font-poppins font-bold text-gray-700 mb-2">Keranjang Masih Kosong</h3>
                 <p class="text-gray-500 mb-6">Yuk, pesan menu favorit kamu sekarang!</p>
-                <a href="/"
+                <a href="/" wire:navigate
                    class="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold transition shadow-md hover:shadow-lg">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>

@@ -145,11 +145,11 @@
 
         {{-- ═══════ NAVIGASI ═══════ --}}
         <div class="flex gap-3">
-            <a href="/order-status/{{ $order->order_number }}"
+            <a href="/order-status/{{ $order->order_number }}" wire:navigate
                class="flex-1 px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-center font-semibold transition shadow-md text-sm">
                 📦 Cek Status
             </a>
-            <a href="/"
+            <a href="/" wire:navigate
                class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-center font-semibold transition text-sm">
                 🏠 Menu
             </a>

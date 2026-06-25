@@ -143,7 +143,7 @@
                 <div class="text-7xl mb-4">🛒</div>
                 <h3 class="text-xl font-poppins font-bold text-gray-700 mb-2">Keranjang Kosong</h3>
                 <p class="text-gray-500 mb-6">Tambahkan menu dulu sebelum checkout.</p>
-                <a href="/" class="inline-block px-6 py-3 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600 transition shadow-md">
+                <a href="/" wire:navigate class="inline-block px-6 py-3 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600 transition shadow-md">
                     Lihat Menu
                 </a>
             </div>

@@ -63,11 +63,11 @@
 
                 {{-- Desktop Nav Links --}}
                 <div class="hidden md:flex items-center gap-6">
-                    <a href="/" class="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-200 relative group">
+                    <a href="{{ route('home') }}" wire:navigate class="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-200 relative group">
                         Menu
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
-                    <a href="/order-status" class="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-200 relative group">
+                    <a href="{{ route('order-status') }}" wire:navigate class="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-200 relative group">
                         Cek Pesanan
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
@@ -160,25 +160,25 @@
     {{-- ═══════ MOBILE BOTTOM NAV ═══════ --}}
     <nav class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
         <div class="grid grid-cols-4 h-16">
-            <a href="/" class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors">
+            <a href="/" wire:navigate class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                 </svg>
                 <span class="text-[10px] mt-0.5 font-medium">Home</span>
             </a>
-            <a href="/" class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors">
+            <a href="/" wire:navigate class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
                 </svg>
                 <span class="text-[10px] mt-0.5 font-medium">Menu</span>
             </a>
-            <a href="/cart" class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors relative">
+            <a href="/cart" wire:navigate class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors relative">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
                 </svg>
                 <span class="text-[10px] mt-0.5 font-medium">Keranjang</span>
             </a>
-            <a href="/order-status" class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors">
+            <a href="/order-status" wire:navigate class="flex flex-col items-center justify-center text-gray-500 hover:text-orange-500 transition-colors">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                 </svg>

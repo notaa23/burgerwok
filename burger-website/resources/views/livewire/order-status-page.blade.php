@@ -164,13 +164,13 @@
             {{-- ═══════ TOMBOL AKSI ═══════ --}}
             <div class="space-y-3">
                 @if($order->payment_method !== 'cod' && $order->payment_status === 'pending')
-                    <a href="/payment/{{ $order->order_number }}"
+                    <a href="/payment/{{ $order->order_number }}" wire:navigate
                        class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-bold transition shadow-md hover:shadow-lg">
                         💳 Bayar Sekarang
                     </a>
                 @endif
 
-                <a href="/"
+                <a href="/" wire:navigate
                    class="block w-full text-center text-orange-500 hover:text-orange-600 py-2 text-sm font-medium transition">
                     ← Kembali ke Menu
                 </a>
