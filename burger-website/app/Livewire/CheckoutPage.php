@@ -84,7 +84,7 @@ class CheckoutPage extends Component
 
         if ($this->paymentMethod === 'midtrans') {
             // Set konfigurasi Midtrans
-            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY', 'Mid-server-wLgR_nQZ6oORrw9hazXoE39Y');
+            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
             \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
             \Midtrans\Config::$isSanitized = true;
             \Midtrans\Config::$is3ds = true;
