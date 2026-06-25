@@ -1,4 +1,5 @@
 <?php
+// FILE: routes/web.php
 
 use App\Livewire\MenuCatalog;
 use App\Livewire\CartPage;
@@ -6,6 +7,13 @@ use App\Livewire\CheckoutPage;
 use App\Livewire\PaymentPage;
 use App\Livewire\OrderStatusPage;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+| Semua route untuk Burger Kebab MAN
+*/
 
 Route::get('/', MenuCatalog::class)->name('home');
 Route::get('/cart', CartPage::class)->name('cart');
