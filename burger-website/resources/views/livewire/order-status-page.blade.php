@@ -32,14 +32,30 @@
             </div>
         @else
             {{-- Polling --}}
-            <div wire:poll.15s></div>
+            <div wire:poll.5s></div>
 
             {{-- ═══════ INFO PESANAN ═══════ --}}
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
                 <div class="flex items-start justify-between">
                     <div>
                         <p class="text-xs text-gray-400 uppercase tracking-wider font-medium">Nomor Pesanan</p>
-                        <p class="text-lg font-bold text-orange-500 font-poppins mt-0.5">{{ $order->order_number }}</p>
+                        <div class="flex items-center gap-2 mt-0.5" x-data="{ copied: false }">
+                            <p class="text-lg font-bold text-orange-500 font-poppins">{{ $order->order_number }}</p>
+                            <button @click="navigator.clipboard.writeText('{{ $order->order_number }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                                    class="text-gray-400 hover:text-orange-500 transition-colors"
+                                    title="Salin Nomor Pesanan">
+                                <span x-show="!copied">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+                                <span x-show="copied" style="display: none;" class="text-green-500">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
                     </div>
                     <div class="text-right">
                         @php

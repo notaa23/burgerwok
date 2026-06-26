@@ -1,104 +1,102 @@
-{{-- FILE: resources/views/livewire/menu-catalog.blade.php --}}
 <div x-data="menuCatalog()">
 
     {{-- ═══════ HERO SECTION ═══════ --}}
-    <section class="relative overflow-hidden" style="min-height: 520px;">
+    <section class="relative overflow-hidden rounded-b-[3rem] shadow-2xl" style="min-height: 520px;">
         {{-- Background Image --}}
         <div class="absolute inset-0">
-            <img src="{{ asset('images/burger_hero.png') }}" alt="Burger Hero"
-                 class="w-full h-full object-cover"
+            <img src="/images/burger_hero.png" alt="Burger Hero"
+                 class="w-full h-full object-cover animate-float"
                  onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #dc2626 100%)'">
-            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(15,5,0,0.82) 0%, rgba(194,65,12,0.65) 50%, rgba(15,5,0,0.80) 100%);"></div>
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(15,5,0,0.85) 0%, rgba(194,65,12,0.7) 50%, rgba(15,5,0,0.85) 100%);"></div>
         </div>
 
         {{-- Decorative Blobs --}}
-        <div class="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10" style="background: radial-gradient(circle, #f97316, transparent); transform: translate(30%, -30%);"></div>
-        <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-10" style="background: radial-gradient(circle, #ef4444, transparent); transform: translate(-30%, 30%);"></div>
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-20 blur-[80px]" style="background: radial-gradient(circle, #f97316, transparent); transform: translate(30%, -30%);"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-20 blur-[60px]" style="background: radial-gradient(circle, #ef4444, transparent); transform: translate(-30%, 30%);"></div>
 
         {{-- Content --}}
-        <div class="relative z-10 max-w-4xl mx-auto px-4 flex flex-col items-center justify-center py-16 md:py-24 text-center">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 flex flex-col items-center justify-center py-20 md:py-28 text-center">
             {{-- Text --}}
             <div class="text-white">
                 {{-- Badge --}}
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-5"
-                     style="background: rgba(249,115,22,0.25); border: 1px solid rgba(249,115,22,0.5); backdrop-filter: blur(8px);">
-                    <span class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
-                    Open Now · Siap Antar
+                <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-6 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
+                     style="background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); backdrop-filter: blur(12px);">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange-400 animate-pulse shadow-[0_0_10px_#fb923c]"></span>
+                    Open Now 
                 </div>
 
-                <h1 class="font-poppins font-black mb-3 leading-none"
-                    style="font-size: clamp(2.5rem, 7vw, 4.5rem); text-shadow: 0 4px 30px rgba(0,0,0,0.5);">
+                <h1 class="font-poppins font-black mb-4 leading-[1.1]"
+                    style="font-size: clamp(3rem, 8vw, 5.5rem); text-shadow: 0 10px 40px rgba(0,0,0,0.6);">
                     Burger Kebab
-                    <span class="block" style="background: linear-gradient(90deg, #fb923c, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    <span class="block relative" style="background: linear-gradient(to right, #fb923c, #fcd34d, #fb923c); background-size: 200% auto; animation: shine 3s linear infinite; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                         MAN 🔥
                     </span>
                 </h1>
-                <p class="text-orange-100 text-lg font-medium mb-6 opacity-90">
-                    Mantap · Authentic · Nikmat
+                <style>
+                    @keyframes shine { to { background-position: 200% center; } }
+                </style>
+                <p class="text-orange-100/90 text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto">
+                    Rasakan sensasi kelezatan premium dalam setiap gigitan. Mantap, Authentic, dan selalu bikin nagih!
                 </p>
 
                 {{-- Stats --}}
-                <div class="flex justify-center lg:justify-start gap-6 mb-6">
-                    <div class="text-center">
-                        <p class="text-2xl font-black text-orange-400">4.0 ⭐</p>
-                        <p class="text-xs text-orange-200">Rating</p>
+                <div class="flex justify-center gap-8 mb-10">
+                    <div class="text-center bg-white/5 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10">
+                        <p class="text-3xl font-black text-orange-400">4.0<span class="text-xl">⭐</span></p>
+                        <p class="text-xs text-orange-200 font-medium uppercase tracking-wider mt-1">Rating</p>
                     </div>
-                    <div class="w-px bg-white/20"></div>
-                    <div class="text-center">
-                        <p class="text-2xl font-black text-orange-400">Sebentar saja</p>
-                        <p class="text-xs text-orange-200">Siap</p>
+                    <div class="text-center bg-white/5 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10">
+                        <p class="text-3xl font-black text-orange-400">100<span class="text-xl">%</span></p>
+                        <p class="text-xs text-orange-200 font-medium uppercase tracking-wider mt-1">Halal</p>
                     </div>
                 </div>
 
                 {{-- CTA --}}
                 <a href="#menu-section"
                    onclick="document.getElementById('menu-section').scrollIntoView({behavior:'smooth'}); return false;"
-                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-white shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
-                   style="background: linear-gradient(135deg, #ea580c, #dc2626); box-shadow: 0 8px 32px rgba(234,88,12,0.5);">
-                    🍔 Lihat Menu
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                   class="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(234,88,12,0.4)] active:scale-95 group relative overflow-hidden"
+                   style="background: linear-gradient(135deg, #ea580c, #dc2626);">
+                    <span class="absolute inset-0 w-full h-full bg-white/20 group-hover:translate-x-full transition-transform duration-500 ease-out -translate-x-full skew-x-12"></span>
+                    <span class="relative text-lg">🍔 Lihat Menu</span>
+                    <svg class="w-5 h-5 relative group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
                     </svg>
                 </a>
             </div>
         </div>
-
-        {{-- Wave bottom --}}
-        <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none" style="height: 50px;">
-            <svg viewBox="0 0 1440 50" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-full">
-                <path d="M0 50L1440 50L1440 20C1200 50 900 0 720 0C540 0 240 50 0 20L0 50Z" fill="#f9fafb"/>
-            </svg>
-        </div>
     </section>
 
     {{-- ═══════ MENU SECTION ═══════ --}}
-    <div id="menu-section" class="max-w-7xl mx-auto px-4 py-10" style="background: #f9fafb;">
+    <div id="menu-section" class="max-w-7xl mx-auto px-4 py-16" style="background: #f8fafc;">
 
         {{-- Section Title --}}
-        <div class="text-center mb-8">
-            <p class="text-orange-500 text-sm font-bold uppercase tracking-widest mb-1">✦ Pilihan Terbaik ✦</p>
-            <h2 class="font-poppins font-black text-gray-900" style="font-size: 2rem;">Menu Kami</h2>
-            <p class="text-gray-500 mt-2 text-sm">Dibuat segar setiap hari, dijamin bikin ketagihan!</p>
+        <div class="text-center mb-12">
+            <p class="text-orange-500 text-sm font-bold uppercase tracking-[0.3em] mb-2">✦ Signature Menu ✦</p>
+            <h2 class="font-poppins font-black text-slate-900" style="font-size: 2.5rem;">Pilihan Favorit</h2>
+            <div class="w-24 h-1.5 bg-gradient-to-r from-orange-400 to-red-500 mx-auto rounded-full mt-4"></div>
         </div>
 
         {{-- ═══════ SEARCH BAR ═══════ --}}
-        <div class="mb-6 flex justify-center">
-            <div class="relative w-full max-w-lg">
-                <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                <input type="text" wire:model.live.debounce.300ms="search"
-                       placeholder="Cari menu favoritmu..."
-                       class="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-2xl shadow-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none bg-white text-sm transition-all hover:shadow-lg">
+        <div class="mb-10 flex justify-center">
+            <div class="relative w-full max-w-xl group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                <div class="relative">
+                    <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" wire:model.live.debounce.300ms="search"
+                           placeholder="Cari burger atau kebab favoritmu..."
+                           class="w-full pl-14 pr-6 py-4 rounded-2xl border-none shadow-lg focus:ring-4 focus:ring-orange-500/20 outline-none bg-white text-slate-700 font-medium text-lg placeholder-slate-400 transition-all">
+                </div>
             </div>
         </div>
 
         {{-- ═══════ CATEGORY PILLS ═══════ --}}
-        <div class="flex flex-wrap justify-center gap-2 mb-8">
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
             <button wire:click="resetFilter"
-                    class="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 shadow-sm"
-                    style="{{ !$selectedCategory ? 'background: linear-gradient(135deg, #ea580c, #dc2626); color: white; box-shadow: 0 4px 15px rgba(234,88,12,0.4);' : 'background: white; color: #374151; border: 2px solid #e5e7eb;' }}">
-                🍽️ Semua
+                    class="px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:-translate-y-1"
+                    style="{{ !$selectedCategory ? 'background: linear-gradient(135deg, #ea580c, #dc2626); color: white; box-shadow: 0 10px 25px rgba(234,88,12,0.4);' : 'background: white; color: #475569; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;' }}">
+                🍽️ Semua Menu
             </button>
             @foreach($categories as $cat)
                 @php
@@ -111,8 +109,8 @@
                     };
                 @endphp
                 <button wire:click="filterByCategory({{ $cat->id }})"
-                        class="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 shadow-sm"
-                        style="{{ $selectedCategory == $cat->id ? 'background: linear-gradient(135deg, #ea580c, #dc2626); color: white; box-shadow: 0 4px 15px rgba(234,88,12,0.4);' : 'background: white; color: #374151; border: 2px solid #e5e7eb;' }}">
+                        class="px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:-translate-y-1"
+                        style="{{ $selectedCategory == $cat->id ? 'background: linear-gradient(135deg, #ea580c, #dc2626); color: white; box-shadow: 0 10px 25px rgba(234,88,12,0.4);' : 'background: white; color: #475569; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;' }}">
                     {{ $catEmoji }} {{ $cat->name }}
                 </button>
             @endforeach
@@ -120,7 +118,7 @@
 
         {{-- ═══════ MENU GRID ═══════ --}}
         @if($menus->isNotEmpty())
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 @foreach($menus as $index => $menu)
                     @php
                         $menuEmoji = match(strtolower($menu->category->slug ?? $menu->category->name ?? '')) {
@@ -145,18 +143,18 @@
                         ];
                         $defaultImg = $defaultImages[strtolower($menu->category->slug ?? $menu->category->name ?? '')] ?? 'images/burger_hero.png';
                     @endphp
-                    <div class="group bg-white rounded-3xl shadow-sm overflow-hidden transition-all duration-400 hover:-translate-y-2 border border-gray-100"
-                         style="animation: fadeInUp 0.5s ease-out {{ $index * 0.07 }}s both; box-shadow: 0 2px 15px rgba(0,0,0,0.06);"
-                         onmouseover="this.style.boxShadow='0 20px 50px rgba(0,0,0,0.15)'"
-                         onmouseout="this.style.boxShadow='0 2px 15px rgba(0,0,0,0.06)'">
+                    <div class="group bg-white rounded-[2rem] overflow-hidden transition-all duration-500 hover:-translate-y-3"
+                         style="animation: fadeInUp 0.6s ease-out {{ $index * 0.1 }}s both; box-shadow: 0 4px 20px rgba(0,0,0,0.03);"
+                         onmouseover="this.style.boxShadow='0 25px 50px -12px rgba(234,88,12,0.25)'"
+                         onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
 
                         {{-- Image --}}
                         <div class="relative overflow-hidden" style="height: 210px;">
                             @if($menu->image)
-                                <img src="{{ asset('storage/' . $menu->image) }}" alt="{{ $menu->name }}"
+                                <img src="/storage/{{ $menu->image }}" alt="{{ $menu->name }}"
                                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             @else
-                                <img src="{{ asset($defaultImg) }}" alt="{{ $menu->name }}"
+                                <img src="/{{ $defaultImg }}" alt="{{ $menu->name }}"
                                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                      onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #fed7aa, #fdba74)';">
                             @endif
@@ -185,7 +183,7 @@
 
                             {{-- Hover Add Button Overlay --}}
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                <button @click="openModal({{ $menu->id }}, '{{ addslashes($menu->name) }}', {{ $menu->base_price }})"
+                                <button @click="openModal({{ $menu->id }}, '{{ addslashes(htmlspecialchars($menu->name, ENT_QUOTES)) }}', {{ $menu->base_price }})"
                                         class="flex items-center gap-2 text-white font-bold px-5 py-2.5 rounded-full shadow-xl transition-all active:scale-95 translate-y-2 group-hover:translate-y-0 duration-300"
                                         style="background: linear-gradient(135deg, #ea580c, #dc2626); box-shadow: 0 8px 24px rgba(220,38,38,0.5);">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -212,7 +210,7 @@
                                         Rp {{ number_format($menu->base_price, 0, ',', '.') }}
                                     </span>
                                 </div>
-                                <button @click="openModal({{ $menu->id }}, '{{ addslashes($menu->name) }}', {{ $menu->base_price }})"
+                                <button @click="openModal({{ $menu->id }}, '{{ addslashes(htmlspecialchars($menu->name, ENT_QUOTES)) }}', {{ $menu->base_price }})"
                                         class="w-11 h-11 rounded-2xl flex items-center justify-center text-white text-xl font-bold transition-all duration-200 shadow-md hover:scale-110 active:scale-95"
                                         style="background: linear-gradient(135deg, #ea580c, #dc2626); box-shadow: 0 4px 15px rgba(234,88,12,0.4);">
                                     +
@@ -362,90 +360,83 @@
         .duration-400 { transition-duration: 400ms; }
     </style>
 
+    @script
     <script>
-        const initMenuCatalog = () => {
-            if (!window.Alpine) return;
-            window.Alpine.data('menuCatalog', () => ({
-                modalOpen: false,
-                currentMenuId: null,
-                currentName: '',
-                currentPrice: 0,
+        Alpine.data('menuCatalog', () => ({
+            modalOpen: false,
+            currentMenuId: null,
+            currentName: '',
+            currentPrice: 0,
+            qty: 1,
+            selectedSpice: null,
+            selectedToppings: [],
+            notes: '',
 
-                qty: 1,
-                selectedSpice: { id: 1, name: 'Tidak Pedas' },
-                selectedToppings: [],
-                notes: '',
+            openModal(id, name, price) {
+                this.currentMenuId = id;
+                this.currentName = name;
+                this.currentPrice = price;
+                this.qty = 1;
+                this.selectedSpice = null;
+                this.selectedToppings = [];
+                this.notes = '';
 
-                openModal(id, name, price) {
-                    this.currentMenuId = id;
-                    this.currentName = name;
-                    this.currentPrice = price;
-                    this.qty = 1;
-                    this.selectedSpice = { id: 1, name: 'Tidak Pedas' };
-                    this.selectedToppings = [];
-                    this.notes = '';
+                document.querySelectorAll('.topping-checkbox-reset').forEach(cb => {
+                    cb.checked = false;
+                });
 
-                    document.querySelectorAll('.topping-checkbox-reset').forEach(cb => {
-                        cb.checked = false;
-                    });
+                this.modalOpen = true;
+                document.body.style.overflow = 'hidden';
+            },
 
-                    this.modalOpen = true;
-                    document.body.style.overflow = 'hidden';
-                },
+            closeModal() {
+                this.modalOpen = false;
+                document.body.style.overflow = '';
+            },
 
-                closeModal() {
-                    this.modalOpen = false;
-                    document.body.style.overflow = '';
-                },
+            selectSpice(id, name) {
+                this.selectedSpice = { id, name };
+            },
 
-                selectSpice(id, name) {
-                    this.selectedSpice = { id, name };
-                },
-
-                toggleTopping(id, name, price, isChecked) {
-                    if (isChecked) {
-                        this.selectedToppings.push({ id, name, price });
-                    } else {
-                        this.selectedToppings = this.selectedToppings.filter(t => t.id !== id);
-                    }
-                },
-
-                changeQty(delta) {
-                    this.qty = Math.max(1, Math.min(10, this.qty + delta));
-                },
-
-                get total() {
-                    let toppingTotal = this.selectedToppings.reduce((sum, t) => sum + t.price, 0);
-                    return (this.currentPrice + toppingTotal) * this.qty;
-                },
-
-                formattedTotal() {
-                    return 'Rp ' + this.total.toLocaleString('id-ID');
-                },
-
-                confirmAdd() {
-                    Livewire.dispatch('addToCartCustom', {
-                        menuId: this.currentMenuId,
-                        name: this.currentName,
-                        price: this.currentPrice,
-                        qty: this.qty,
-                        spiceLevel: this.selectedSpice,
-                        toppings: this.selectedToppings,
-                        notes: this.notes
-                    });
-
-                    this.closeModal();
-
-                    if (typeof window.toast === 'function') {
-                        window.toast(this.currentName + ' ditambahkan ke keranjang! 🎉', 'success');
-                    }
+            toggleTopping(id, name, price, isChecked) {
+                if (isChecked) {
+                    this.selectedToppings.push({ id, name, price });
+                } else {
+                    this.selectedToppings = this.selectedToppings.filter(t => t.id !== id);
                 }
-            }));
-        };
+            },
 
-        document.addEventListener('alpine:init', initMenuCatalog);
-        if (window.Alpine) {
-            initMenuCatalog();
-        }
+            changeQty(delta) {
+                this.qty = Math.max(1, Math.min(10, this.qty + delta));
+            },
+
+            get total() {
+                let toppingTotal = this.selectedToppings.reduce((sum, t) => sum + t.price, 0);
+                return (this.currentPrice + toppingTotal) * this.qty;
+            },
+
+            formattedTotal() {
+                return 'Rp ' + this.total.toLocaleString('id-ID');
+            },
+
+            confirmAdd() {
+                Livewire.dispatch('addToCartCustom', {
+                    menuId: this.currentMenuId,
+                    name: this.currentName,
+                    price: this.currentPrice,
+                    qty: this.qty,
+                    spiceLevel: this.selectedSpice,
+                    toppings: this.selectedToppings,
+                    notes: this.notes
+                });
+
+                this.closeModal();
+
+                if (typeof window.toast === 'function') {
+                    window.toast(this.currentName + ' ditambahkan ke keranjang! 🎉', 'success');
+                }
+            }
+        }));
     </script>
+    @endscript
 </div>

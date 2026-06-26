@@ -16,17 +16,21 @@ class MenusTable
     {
         return $table
             ->columns([
-                TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
+                ImageColumn::make('image')
+                    ->circular()
+                    ->defaultImageUrl(url('/images/default_burger.jpg')),
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('base_price')
-                    ->numeric()
+                    ->searchable()
+                    ->weight('bold')
+                    ->description(fn ($record) => $record->slug),
+                TextColumn::make('category.name')
+                    ->badge()
+                    ->color('info')
                     ->sortable(),
-                ImageColumn::make('image'),
+                TextColumn::make('base_price')
+                    ->money('IDR', locale: 'id')
+                    ->sortable()
+                    ->weight('bold'),
                 IconColumn::make('is_available')
                     ->boolean(),
                 IconColumn::make('is_featured')

@@ -10,7 +10,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,15 +20,21 @@
                     fontFamily: {
                         poppins: ['Poppins', 'sans-serif'],
                         inter: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
                     },
                     animation: {
                         'bounce-slow': 'bounce 2s infinite',
                         'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
@@ -36,28 +42,38 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Outfit', sans-serif; }
         .font-poppins { font-family: 'Poppins', sans-serif; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
     </style>
 
     @livewireStyles
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-orange-500 selection:text-white relative" style="background-image: url('{{ asset('images/bg-warung.jpg') }}'); background-size: cover; background-position: center; background-attachment: fixed;">
+    
+    {{-- Overlay transparan untuk memastikan teks tetap terbaca meskipun ada gambar background --}}
+    <div class="fixed inset-0 bg-white/85 backdrop-blur-sm z-[-1]"></div>
+
 
     {{-- ═══════ NAVBAR ═══════ --}}
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
+    <nav class="sticky top-0 z-50 glass-nav shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+            <div class="flex items-center justify-between h-20">
                 {{-- Logo --}}
-                <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:shadow-lg group-hover:bg-orange-600 transition-all duration-300">
+                <a href="/" wire:navigate class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:shadow-orange-500/30 group-hover:scale-105 transition-all duration-300 transform">
                         M
                     </div>
                     <div>
-                        <h1 class="font-poppins font-bold text-lg leading-tight text-gray-800">Burger Kebab</h1>
-                        <p class="text-orange-500 font-bold text-xs tracking-wider">MAN</p>
+                        <h1 class="font-poppins font-black text-xl tracking-tight text-slate-900 group-hover:text-orange-600 transition-colors">Burger Kebab</h1>
+                        <p class="text-orange-500 font-bold text-[11px] tracking-[0.2em] uppercase">MAN</p>
                     </div>
                 </a>
 
@@ -106,8 +122,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         <div>
-                            <p class="text-sm">Setiap Hari</p>
-                            <p class="text-white font-semibold">15:00 - 23:00 WIB</p>
+                            <p class="text-sm">Senin - Jumat</p>
+                            <p class="text-white font-semibold">15:00 - 20:00 WIB</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +136,7 @@
                             <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                             </svg>
-                            <p class="text-sm">0812-XXX-XXXX</p>
+                            <a href="https://wa.me/6282230816380" target="_blank" class="text-sm hover:text-orange-400 transition-colors">+6282230816380</a>
                         </div>
                     </div>
                 </div>
@@ -133,7 +149,7 @@
     </footer>
 
     {{-- ═══════ FLOATING WHATSAPP ═══════ --}}
-    <a href="https://wa.me/62812XXXXXXXX" target="_blank"
+    <a href="https://wa.me/6282230816380" target="_blank"
        class="hidden md:flex fixed bottom-6 right-6 z-40 bg-green-500 hover:bg-green-600 text-white rounded-full w-14 h-14 items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce-slow">
         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>

@@ -41,17 +41,20 @@ class StatsOverview extends BaseWidget
             Stat::make('Pesanan Hari Ini', $ordersToday)
                 ->description('Total pesanan masuk hari ini')
                 ->descriptionIcon('heroicon-m-shopping-bag')
+                ->chart([2, 5, 3, 7, 4, 10, $ordersToday])
                 ->color('success'),
 
             Stat::make('Pendapatan Hari Ini', 'Rp ' . number_format($revenueToday, 0, ',', '.'))
                 ->description('Dari pesanan selesai')
                 ->descriptionIcon('heroicon-m-banknotes')
+                ->chart([100000, 250000, 150000, 400000, 300000, 500000, $revenueToday])
                 ->color('warning'),
 
             Stat::make('Pesanan Pending', $pendingOrders)
                 ->description('Menunggu diproses')
                 ->descriptionIcon('heroicon-m-clock')
-                ->color('danger'),
+                ->chart([$pendingOrders, $pendingOrders > 0 ? $pendingOrders - 1 : 0])
+                ->color($pendingOrders > 0 ? 'danger' : 'success'),
 
             Stat::make('Menu Terlaris', $bestSellerName)
                 ->description('Paling banyak dipesan')

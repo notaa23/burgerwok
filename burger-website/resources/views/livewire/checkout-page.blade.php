@@ -1,4 +1,3 @@
-{{-- FILE: resources/views/livewire/checkout-page.blade.php --}}
 <div>
     <div class="max-w-2xl mx-auto px-4 py-8">
         {{-- ═══════ PROGRESS STEPS ═══════ --}}
@@ -70,21 +69,41 @@
                         <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-sm">💳</span>
                         Metode Pembayaran
                     </h2>
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 gap-3">
+                        {{-- QRIS --}}
                         <label class="cursor-pointer">
-                            <input type="radio" wire:model="paymentMethod" value="midtrans" class="hidden peer">
-                            <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 text-center hover:border-orange-300 transition-all duration-200 group">
-                                <div class="text-3xl mb-2">💳</div>
-                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">Bayar Online</p>
-                                <p class="text-xs text-gray-400 mt-1">QRIS, Transfer, e-Wallet</p>
+                            <input type="radio" wire:model="paymentMethod" value="qris" class="hidden peer">
+                            <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 hover:border-orange-300 transition-all duration-200 group flex items-center gap-4">
+                                <div class="text-3xl">📱</div>
+                                <div>
+                                    <p class="text-sm font-bold text-gray-700 group-hover:text-orange-600">QRIS</p>
+                                    <p class="text-xs text-gray-400 mt-0.5">GoPay, OVO, DANA, ShopeePay, Mobile Banking</p>
+                                </div>
+                                <div class="text-sm font-bold text-gray-700 group-hover:text-orange-600">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-orange-500 hidden peer-checked:block"></div>
+                                </div>
                             </div>
                         </label>
+                        {{-- Transfer Bank --}}
+                        <label class="cursor-pointer">
+                            <input type="radio" wire:model="paymentMethod" value="transfer" class="hidden peer">
+                            <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 hover:border-orange-300 transition-all duration-200 group flex items-center gap-4">
+                                <div class="text-3xl">🏦</div>
+                                <div>
+                                    <p class="text-sm font-bold text-gray-700 group-hover:text-orange-600">Transfer Bank</p>
+                                    <p class="text-xs text-gray-400 mt-0.5">Transfer ke rekening yang tersedia</p>
+                                </div>
+                            </div>
+                        </label>
+                        {{-- COD --}}
                         <label class="cursor-pointer">
                             <input type="radio" wire:model="paymentMethod" value="cod" class="hidden peer">
-                            <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 text-center hover:border-orange-300 transition-all duration-200 group">
-                                <div class="text-3xl mb-2">💵</div>
-                                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600">Bayar di Tempat</p>
-                                <p class="text-xs text-gray-400 mt-1">Siapkan uang pas (COD)</p>
+                            <div class="border-2 border-gray-100 peer-checked:border-orange-500 peer-checked:bg-orange-50 rounded-2xl p-4 hover:border-orange-300 transition-all duration-200 group flex items-center gap-4">
+                                <div class="text-3xl">💵</div>
+                                <div>
+                                    <p class="text-sm font-bold text-gray-700 group-hover:text-orange-600">Bayar di Tempat (COD)</p>
+                                    <p class="text-xs text-gray-400 mt-0.5">Siapkan uang pas saat ambil pesanan</p>
+                                </div>
                             </div>
                         </label>
                     </div>

@@ -5,7 +5,9 @@ namespace App\Livewire;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderItemTopping;
+use App\Models\User;
 use App\Services\CartService;
+use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class CheckoutPage extends Component
@@ -20,7 +22,7 @@ class CheckoutPage extends Component
     protected $rules = [
         'name' => 'required|min:3',
         'whatsapp' => 'required|regex:/^08[0-9]{8,11}$/',
-        'paymentMethod' => 'required|in:midtrans,cod',
+        'paymentMethod' => 'required|in:qris,transfer,cod',
     ];
 
     public function mount()
@@ -82,40 +84,20 @@ class CheckoutPage extends Component
         $cart->clear();
         $this->dispatch('cartUpdated');
 
-        if ($this->paymentMethod === 'midtrans') {
-            // Set konfigurasi Midtrans
-            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-            \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
-            \Midtrans\Config::$isSanitized = true;
-            \Midtrans\Config::$is3ds = true;
+        // Kirim notifikasi ke Admin
+        Notification::make()
+            ->title('Pesanan Baru Masuk! 🎉')
+            ->body("Pesanan {$order->order_number} dari {$order->customer_name} sebesar Rp " . number_format($order->total, 0, ',', '.'))
+            ->success()
+            ->sendToDatabase(User::all());
 
-            $params = [
-                'transaction_details' => [
-                    'order_id' => $order->order_number,
-                    'gross_amount' => $order->total,
-                ],
-                'customer_details' => [
-                    'first_name' => $order->customer_name,
-                    'phone' => $order->customer_phone,
-                ],
-            ];
-
-            try {
-                $snapToken = \Midtrans\Snap::getSnapToken($params);
-                $order->update(['snap_token' => $snapToken]);
-                return redirect('/payment/' . $order->order_number);
-            } catch (\Throwable $e) {
-                $order->update(['notes' => 'ERROR_MIDTRANS: ' . $e->getMessage()]);
-                \Illuminate\Support\Facades\Log::error('Midtrans Snap Error: ' . $e->getMessage(), [
-                    'server_key' => env('MIDTRANS_SERVER_KEY'),
-                    'is_production' => env('MIDTRANS_IS_PRODUCTION')
-                ]);
-                session()->flash('error', 'Gagal memproses Midtrans: ' . $e->getMessage());
-                return redirect('/payment/' . $order->order_number);
-            }
+        // COD langsung ke halaman sukses
+        if ($this->paymentMethod === 'cod') {
+            return redirect('/order-success/' . $order->order_number);
         }
 
-        return redirect('/order-success/' . $order->order_number);
+        // QRIS / Transfer → ke halaman bayar
+        return redirect('/payment/' . $order->order_number);
     }
 
     public function render()

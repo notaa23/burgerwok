@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesanan Berhasil - Burger Kebab MAN</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Outfit', sans-serif; }
         .font-poppins { font-family: 'Poppins', sans-serif; }
 
         @keyframes checkmark {
@@ -17,87 +17,77 @@
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
-        @keyframes circleGrow {
-            0% { transform: scale(0); }
-            60% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @keyframes confettiFall {
-            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100px) rotate(720deg); opacity: 0; }
-        }
+        .check-icon { animation: checkmark 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .receipt-card { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        .check-circle { animation: circleGrow 0.6s ease-out forwards; }
-        .check-icon { animation: checkmark 0.5s ease-out 0.3s forwards; opacity: 0; }
-        .fade-up-1 { animation: fadeUp 0.5s ease-out 0.6s forwards; opacity: 0; }
-        .fade-up-2 { animation: fadeUp 0.5s ease-out 0.8s forwards; opacity: 0; }
-        .fade-up-3 { animation: fadeUp 0.5s ease-out 1.0s forwards; opacity: 0; }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
+        /* Zigzag receipt border */
+        .receipt-bottom {
+            background-image: radial-gradient(circle at 10px 0, transparent 10px, white 11px);
+            background-size: 20px 20px;
+            background-repeat: repeat-x;
+            height: 20px;
+            width: 100%;
+            margin-top: -10px;
+            transform: rotate(180deg);
         }
     </style>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen relative overflow-hidden">
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
 
-    {{-- Confetti particles --}}
-    <div class="absolute inset-0 pointer-events-none" id="confetti-container">
-        @for($i = 0; $i < 20; $i++)
-            @php
-                $colors = ['#F97316', '#EAB308', '#22C55E', '#3B82F6', '#EF4444'];
-                $color = $colors[array_rand($colors)];
-                $left = rand(5, 95);
-                $delay = rand(0, 20) / 10;
-                $duration = rand(15, 30) / 10;
-            @endphp
-            <div class="confetti" style="
-                left: {{ $left }}%;
-                top: -20px;
-                background-color: {{ $color }};
-                animation: confettiFall {{ $duration }}s ease-in {{ $delay }}s forwards;
-            "></div>
-        @endfor
-    </div>
-
-    <div class="text-center px-4 max-w-md mx-auto relative z-10">
-        {{-- Check Animation --}}
-        <div class="mb-6">
-            <div class="check-circle w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-green-200">
-                <svg class="check-icon w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+    <div class="w-full max-w-sm receipt-card opacity-0 relative z-10">
+        {{-- Receipt Top --}}
+        <div class="bg-white rounded-t-3xl pt-10 pb-6 px-8 shadow-[0_20px_40px_rgba(0,0,0,0.08)] relative overflow-hidden">
+            
+            {{-- Success Icon --}}
+            <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/30">
+                <svg class="check-icon w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7"/>
                 </svg>
             </div>
-        </div>
 
-        {{-- Text --}}
-        <h1 class="fade-up-1 text-3xl font-poppins font-bold text-gray-800 mb-2">Pesanan Berhasil!</h1>
-        <p class="fade-up-1 text-gray-500 mb-2">Nomor pesanan kamu:</p>
-        <p class="fade-up-2 text-3xl font-poppins font-bold text-orange-500 mb-8 tracking-wider">{{ $orderNumber }}</p>
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-poppins font-black text-slate-800 tracking-tight">Pesanan Diterima!</h1>
+                <p class="text-slate-500 text-sm mt-1">Terima kasih telah memesan di Burger Kebab MAN.</p>
+            </div>
 
-        {{-- Buttons --}}
-        <div class="fade-up-3 flex flex-col gap-3 max-w-xs mx-auto">
-            <a href="/order-status/{{ $orderNumber }}"
-               class="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3.5 rounded-2xl font-bold transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
-                📦 Cek Status Pesanan
-            </a>
-            <a href="/payment/{{ $orderNumber }}"
-               class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3.5 rounded-2xl font-bold transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
-                💳 Bayar Sekarang
-            </a>
-            <a href="/"
-               class="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3.5 rounded-2xl font-semibold transition-all">
-                🏠 Kembali ke Menu
-            </a>
+            {{-- Divider --}}
+            <div class="border-t-2 border-dashed border-slate-200 my-6 relative">
+                <div class="absolute -left-10 -top-3 w-6 h-6 bg-slate-100 rounded-full"></div>
+                <div class="absolute -right-10 -top-3 w-6 h-6 bg-slate-100 rounded-full"></div>
+            </div>
+
+            {{-- Order Details --}}
+            <div class="text-center mb-8">
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Nomor Pesanan</p>
+                <div class="bg-slate-50 py-3 rounded-2xl border border-slate-100">
+                    <p class="text-3xl font-poppins font-black text-orange-500 tracking-wider">{{ $orderNumber }}</p>
+                </div>
+            </div>
+
+            {{-- Buttons --}}
+            <div class="flex flex-col gap-3">
+                <a href="/payment/{{ $orderNumber }}"
+                   class="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-orange-500/25 active:scale-[0.98]">
+                    💳 Lanjut Pembayaran
+                </a>
+                <a href="/order-status/{{ $orderNumber }}"
+                   class="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold transition-all shadow-md active:scale-[0.98]">
+                    📋 Cek Status
+                </a>
+                <a href="/"
+                   class="flex items-center justify-center gap-2 text-slate-500 hover:text-slate-800 px-6 py-3 font-semibold transition-colors mt-2">
+                    🏠 Kembali ke Beranda
+                </a>
+            </div>
         </div>
+        {{-- Receipt Bottom Zigzag --}}
+        <div class="receipt-bottom shadow-[0_20px_40px_rgba(0,0,0,0.08)]"></div>
+    </div>
     </div>
 
     <script>

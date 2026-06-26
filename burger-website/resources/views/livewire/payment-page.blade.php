@@ -1,96 +1,141 @@
-{{-- FILE: resources/views/livewire/payment-page.blade.php --}}
-<div>
-    <div class="max-w-lg mx-auto px-4 py-8">
+<div class="min-h-screen bg-slate-50 py-12">
+    <div class="max-w-md mx-auto px-4">
 
         {{-- ═══════ HEADER ═══════ --}}
-        <div class="text-center mb-6">
-            <div class="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-3 shadow-xl"
-                 style="background: linear-gradient(135deg, #ea580c, #dc2626); box-shadow: 0 12px 32px rgba(234,88,12,0.4);">
-                <span class="text-4xl">💳</span>
+        <div class="text-center mb-8">
+            <div class="w-24 h-24 rounded-[2rem] flex items-center justify-center mx-auto mb-4 bg-gradient-to-br from-orange-400 to-red-500 shadow-xl shadow-orange-500/20 transform hover:scale-105 transition-transform duration-300">
+                <span class="text-5xl">💳</span>
             </div>
-            <h1 class="text-2xl font-poppins font-black text-gray-900">Pembayaran</h1>
-            <p class="text-gray-500 text-sm mt-1">Selesaikan pembayaran untuk memproses pesananmu</p>
+            <h1 class="text-3xl font-poppins font-black text-slate-800 tracking-tight">Selesaikan Pembayaran</h1>
+            <p class="text-slate-500 font-medium mt-2">Satu langkah lagi menuju kelezatan!</p>
         </div>
 
         {{-- ═══════ INFO PESANAN ═══════ --}}
-        <div class="rounded-3xl p-5 mb-4 shadow-lg relative overflow-hidden"
-             style="background: linear-gradient(135deg, #1c1917, #292524);">
+        <div class="rounded-[2rem] p-6 mb-6 shadow-2xl relative overflow-hidden"
+             style="background: linear-gradient(135deg, #0f172a, #1e293b);">
             {{-- Decorative --}}
-            <div class="absolute top-0 right-0 w-32 h-32 rounded-full opacity-10"
+            <div class="absolute top-0 right-0 w-40 h-40 rounded-full opacity-10 blur-xl"
                  style="background: radial-gradient(circle, #f97316, transparent); transform: translate(30%, -30%);"></div>
-            <div class="flex justify-between items-center relative z-10">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-orange-400 mb-1">Nomor Pesanan</p>
-                    <p class="text-xl font-black text-white font-poppins">{{ $order->order_number }}</p>
-                    <p class="text-xs text-gray-400 mt-1 capitalize">
-                        {{ str_replace('_', ' ', $order->payment_method) }}
-                        @if($order->payment_status === 'pending')
-                            · <span class="text-yellow-400">⏳ Menunggu Pembayaran</span>
-                        @elseif($order->payment_status === 'waiting_confirmation')
-                            · <span class="text-blue-400">🔍 Menunggu Konfirmasi</span>
-                        @elseif($order->payment_status === 'confirmed')
-                            · <span class="text-green-400">✅ Terkonfirmasi</span>
-                        @endif
-                    </p>
+            <div class="absolute bottom-0 left-0 w-32 h-32 rounded-full opacity-10 blur-xl"
+                 style="background: radial-gradient(circle, #38bdf8, transparent); transform: translate(-30%, 30%);"></div>
+            
+            <div class="relative z-10 flex flex-col gap-4">
+                <div class="flex justify-between items-center border-b border-white/10 pb-4">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-orange-400 mb-1">Nomor Pesanan</p>
+                        <div class="flex items-center gap-2" x-data="{ copied: false }">
+                            <p class="text-2xl font-black text-white font-poppins tracking-wider">{{ $order->order_number }}</p>
+                            <button @click="navigator.clipboard.writeText('{{ $order->order_number }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                                    class="text-white/60 hover:text-white transition-colors"
+                                    title="Salin Nomor Pesanan">
+                                <span x-show="!copied">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                </span>
+                                <span x-show="copied" style="display: none;" class="text-green-400">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl px-3 py-1.5 border border-white/5">
+                        <p class="text-xs text-white/80 font-medium capitalize flex items-center gap-1">
+                            @if($order->payment_status === 'pending')
+                                <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+                                Menunggu Pembayaran
+                            @elseif($order->payment_status === 'waiting_confirmation')
+                                <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                                Menunggu Konfirmasi
+                            @elseif($order->payment_status === 'confirmed')
+                                <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                                Terkonfirmasi
+                            @endif
+                        </p>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <p class="text-xs font-bold uppercase tracking-widest text-orange-400 mb-1">Total</p>
-                    <p class="text-3xl font-black text-white font-poppins">Rp {{ number_format($order->total, 0, ',', '.') }}</p>
+                <div class="flex justify-between items-end pt-2">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-1">Metode Pembayaran</p>
+                        <p class="text-lg font-bold text-white capitalize">{{ str_replace('_', ' ', $order->payment_method) }}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-orange-400 mb-1">Total Belanja</p>
+                        <p class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300 font-poppins">
+                            Rp {{ number_format($order->total, 0, ',', '.') }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         {{-- ═══════ MIDTRANS ═══════ --}}
         @if($order->payment_method === 'midtrans')
-            <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 mb-4 text-center">
-                <h2 class="font-poppins font-black text-gray-900 mb-2 flex items-center justify-center gap-2 text-lg">
-                    <span class="w-9 h-9 rounded-xl flex items-center justify-center text-sm"
-                          style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">💳</span>
-                    Bayar Online
-                </h2>
-                <p class="text-gray-500 text-sm mb-6">Klik tombol di bawah ini untuk memunculkan pilihan pembayaran (QRIS, GoPay, Transfer Bank, dll)</p>
+            <div class="bg-white rounded-[2rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 mb-6 text-center">
+                <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-indigo-100">
+                    <span class="text-3xl">📱</span>
+                </div>
+                <h2 class="font-poppins font-black text-slate-800 mb-2 text-xl">Bayar Lebih Mudah</h2>
+                <p class="text-slate-500 font-medium text-sm mb-8 leading-relaxed">
+                    Selesaikan pembayaran dengan aman menggunakan e-Wallet (GoPay, OVO, Dana), QRIS, atau Virtual Account Bank pilihan Anda.
+                </p>
                 
                 @if($order->payment_status === 'pending' && $order->snap_token)
-                    <button id="pay-button" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-2xl font-bold text-lg transition-all shadow-lg hover:shadow-xl active:scale-[0.98]">
-                        Proses Pembayaran
-                    </button>
-                    
-                    @php
-                        $midtransScriptUrl = env('MIDTRANS_IS_PRODUCTION', false) ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js';
-                    @endphp
-                    <script src="{{ $midtransScriptUrl }}" data-client-key="{{ env('MIDTRANS_CLIENT_KEY', 'Mid-client-HjZjxhtw1VbJAGri') }}"></script>
-                    <script>
-                        document.getElementById('pay-button').onclick = function () {
-
-                            snap.pay('{{ $order->snap_token }}', {
-                                onSuccess: function (result) {
-                                    window.location.href = '/order-status/{{ $order->order_number }}';
-                                },
-                                onPending: function (result) {
-                                    window.location.href = '/order-status/{{ $order->order_number }}';
-                                },
-                                onError: function (result) {
-                                    alert("Pembayaran gagal!");
-                                },
-                                onClose: function () {
-                                    console.log('Customer closed the popup without finishing the payment');
-                                }
-                            });
-                        };
-                    </script>
+                    @if(str_starts_with($order->snap_token, 'http'))
+                        <a href="{{ $order->snap_token }}" class="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white py-4 px-6 rounded-2xl font-black text-lg transition-all shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 active:scale-[0.98] flex items-center justify-center gap-2 group">
+                            <span>Bayar Sekarang</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    @else
+                        <button id="pay-button" class="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white py-4 px-6 rounded-2xl font-black text-lg transition-all shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 active:scale-[0.98] flex items-center justify-center gap-2">
+                            <span>Proses Pembayaran</span>
+                        </button>
+                        
+                        @php
+                            $midtransScriptUrl = config('services.midtrans.is_production') ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js';
+                        @endphp
+                        <script src="{{ $midtransScriptUrl }}" data-client-key="{{ config('services.midtrans.client_key') }}"></script>
+                        <script>
+                            document.getElementById('pay-button').onclick = function () {
+                                snap.pay('{{ $order->snap_token }}', {
+                                    onSuccess: function (result) {
+                                        window.location.href = '/order-status/{{ $order->order_number }}';
+                                    },
+                                    onPending: function (result) {
+                                        window.location.href = '/order-status/{{ $order->order_number }}';
+                                    },
+                                    onError: function (result) {
+                                        alert("Pembayaran gagal!");
+                                    },
+                                    onClose: function () {
+                                        console.log('Customer closed the popup without finishing the payment');
+                                    }
+                                });
+                            };
+                        </script>
+                    @endif
                 @elseif($order->payment_status === 'confirmed')
-                    <div class="p-4 rounded-2xl text-center flex items-center justify-center gap-2" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #86efac;">
-                        <span class="text-2xl">🎉</span>
-                        <span class="font-bold text-green-800">Pembayaran telah berhasil!</span>
+                    <div class="p-6 rounded-2xl text-center bg-emerald-50 border border-emerald-200">
+                        <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white mx-auto mb-3 shadow-lg shadow-emerald-500/30">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <span class="font-black text-emerald-800 block text-lg">Pembayaran Berhasil!</span>
+                        <span class="text-emerald-600 font-medium text-sm mt-1 block">Pesanan Anda segera diproses.</span>
                     </div>
                 @elseif($order->payment_status === 'pending' && !$order->snap_token)
-                    <div class="p-4 rounded-2xl text-center mb-4 text-red-700 bg-red-50 border border-red-200">
-                        <span class="text-2xl block mb-2">⚠️</span>
-                        <span class="font-bold">Gagal terhubung ke server pembayaran.</span>
+                    <div class="p-6 rounded-2xl text-center mb-4 text-red-800 bg-red-50 border border-red-200">
+                        <span class="text-3xl block mb-3">⚠️</span>
+                        <span class="font-bold text-lg block">Gagal terhubung ke server pembayaran.</span>
                         @if(session('error'))
-                            <p class="text-sm mt-1">{{ session('error') }}</p>
+                            <p class="text-sm font-medium mt-2 bg-white/50 p-2 rounded-lg">{{ session('error') }}</p>
                         @endif
-                        <p class="text-xs text-red-500 mt-2">Pastikan konfigurasi API Key Midtrans Anda sudah benar di file .env.</p>
+                        <p class="text-xs text-red-600 font-medium mt-3">Sistem sedang mengalami gangguan teknis atau API Key belum dikonfigurasi dengan benar.</p>
                     </div>
                 @endif
             </div>
@@ -98,31 +143,46 @@
         {{-- ═══════ QRIS ═══════ --}}
         @elseif($order->payment_method === 'qris')
             <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-100 mb-4">
-                <h2 class="font-poppins font-black text-gray-900 text-center mb-5 flex items-center justify-center gap-2 text-lg">
-                    <span class="w-9 h-9 rounded-xl flex items-center justify-center text-sm"
-                          style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">📱</span>
-                    Scan QRIS
+                <h2 class="font-poppins font-black text-gray-900 text-center mb-2 text-lg">
+                    📱 Scan QRIS untuk Membayar
                 </h2>
-                {{-- QR Placeholder --}}
-                <div class="w-56 h-56 mx-auto rounded-2xl flex flex-col items-center justify-center border-2 border-dashed border-gray-200 mb-4 relative"
-                     style="background: linear-gradient(135deg, #f9fafb, #f3f4f6);">
-                    {{-- QR Pattern decoration --}}
-                    <div class="grid grid-cols-3 gap-1 opacity-30 mb-2">
-                        @for($i = 0; $i < 9; $i++)
-                        <div class="w-10 h-10 rounded" style="background: {{ $i % 2 == 0 ? '#1c1917' : '#d1d5db' }};"></div>
-                        @endfor
-                    </div>
-                    <p class="text-xs text-gray-400 font-medium text-center px-4">Hubungi kasir untuk QR Code aktif</p>
-                    <div class="absolute top-3 left-3 w-8 h-8 border-4 border-gray-800 rounded-sm" style="border-right: none; border-bottom: none;"></div>
-                    <div class="absolute top-3 right-3 w-8 h-8 border-4 border-gray-800 rounded-sm" style="border-left: none; border-bottom: none;"></div>
-                    <div class="absolute bottom-3 left-3 w-8 h-8 border-4 border-gray-800 rounded-sm" style="border-right: none; border-top: none;"></div>
+                <p class="text-center text-sm text-gray-500 mb-5">Gunakan GoPay, OVO, DANA, ShopeePay, atau Mobile Banking apapun</p>
+
+                {{-- Nominal yang harus dibayar --}}
+                <div class="mb-4 p-3 rounded-2xl text-center" style="background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 1px solid #fed7aa;">
+                    <p class="text-xs font-bold uppercase tracking-widest text-orange-600 mb-1">Bayar Tepat Sebesar</p>
+                    <p class="text-3xl font-black text-orange-600 font-poppins">Rp {{ number_format($order->total, 0, ',', '.') }}</p>
                 </div>
+
+                {{-- QRIS Image --}}
+                <div class="flex justify-center mb-4">
+                    @if(file_exists(public_path('images/qris.jpg')) || file_exists(public_path('images/qris.png')))
+                        <div class="p-3 border-4 border-gray-900 rounded-2xl shadow-lg">
+                            @if(file_exists(public_path('images/qris.jpg')))
+                                <img src="/images/qris.jpg" alt="QRIS Burger Kebab MAN" class="w-56 h-56 object-contain">
+                            @else
+                                <img src="/images/qris.png" alt="QRIS Burger Kebab MAN" class="w-56 h-56 object-contain">
+                            @endif
+                        </div>
+                    @else
+                        <div class="w-64 p-6 border-4 border-dashed border-orange-400 rounded-2xl text-center bg-orange-50">
+                            <p class="text-5xl mb-3">📋</p>
+                            <p class="font-black text-orange-700 text-sm">QRIS belum diunggah</p>
+                            <p class="text-xs text-orange-500 mt-2 leading-relaxed">
+                                Taruh gambar QRIS Anda di:<br>
+                                <code class="bg-orange-100 px-1 rounded text-orange-700">public/images/qris.jpg</code>
+                            </p>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="p-3 rounded-2xl text-center" style="background: linear-gradient(135deg, #eff6ff, #dbeafe);">
                     <p class="text-sm text-blue-700 font-medium">
-                        📲 Scan menggunakan aplikasi e-wallet atau mobile banking Anda
+                        💡 Setelah scan & bayar, upload bukti bayar di bawah ya!
                     </p>
                 </div>
             </div>
+
 
         {{-- ═══════ TRANSFER ═══════ --}}
         @elseif($order->payment_method === 'transfer')
@@ -136,9 +196,94 @@
                      x-data="{ copied: false }">
                     <div class="flex items-center justify-between">
                         <div>
+                            <p class="text-xs font-black uppercase tracking-widest text-blue-500 mb-1">Bank BRI</p>
+                            <p class="text-2xl font-black text-gray-900 font-poppins tracking-widest">1234567890</p>
+                            <p class="text-sm text-gray-500 mt-1">VA <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
+                        </div>
+                        <button @click="navigator.clipboard.writeText('1234567890'); copied = true; setTimeout(() => copied = false, 2500)"
+                                class="px-4 py-2.5 rounded-xl text-sm font-black transition-all duration-200 shadow-sm"
+                                :class="copied ? 'bg-green-500 text-white shadow-green-200' : 'bg-white text-blue-600 hover:bg-blue-50 border-2 border-blue-200'">
+                            <span x-show="!copied">📋 Salin</span>
+                            <span x-show="copied">✅ Tersalin!</span>
+                        </button>
+                    </div>
+                </div>
+                                </h2>
+                <div class="rounded-2xl p-4 border border-blue-100 mb-3" style="background: linear-gradient(135deg, #eff6ff, #f0f9ff);"
+                     x-data="{ copied: false }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-widest text-blue-500 mb-1">Bank BNI</p>
+                            <p class="text-2xl font-black text-gray-900 font-poppins tracking-widest">1234567890</p>
+                            <p class="text-sm text-gray-500 mt-1">VA <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
+                        </div>
+                        <button @click="navigator.clipboard.writeText('1234567890'); copied = true; setTimeout(() => copied = false, 2500)"
+                                class="px-4 py-2.5 rounded-xl text-sm font-black transition-all duration-200 shadow-sm"
+                                :class="copied ? 'bg-green-500 text-white shadow-green-200' : 'bg-white text-blue-600 hover:bg-blue-50 border-2 border-blue-200'">
+                            <span x-show="!copied">📋 Salin</span>
+                            <span x-show="copied">✅ Tersalin!</span>
+                        </button>
+                    </div>
+                </div>
+                                </h2>
+                <div class="rounded-2xl p-4 border border-blue-100 mb-3" style="background: linear-gradient(135deg, #eff6ff, #f0f9ff);"
+                     x-data="{ copied: false }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-widest text-blue-500 mb-1">Bank Mandiri</p>
+                            <p class="text-2xl font-black text-gray-900 font-poppins tracking-widest">1234567890</p>
+                            <p class="text-sm text-gray-500 mt-1">VA <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
+                        </div>
+                        <button @click="navigator.clipboard.writeText('1234567890'); copied = true; setTimeout(() => copied = false, 2500)"
+                                class="px-4 py-2.5 rounded-xl text-sm font-black transition-all duration-200 shadow-sm"
+                                :class="copied ? 'bg-green-500 text-white shadow-green-200' : 'bg-white text-blue-600 hover:bg-blue-50 border-2 border-blue-200'">
+                            <span x-show="!copied">📋 Salin</span>
+                            <span x-show="copied">✅ Tersalin!</span>
+                        </button>
+                    </div>
+                </div>
+                                </h2>
+                <div class="rounded-2xl p-4 border border-blue-100 mb-3" style="background: linear-gradient(135deg, #eff6ff, #f0f9ff);"
+                     x-data="{ copied: false }">
+                    <div class="flex items-center justify-between">
+                        <div>
                             <p class="text-xs font-black uppercase tracking-widest text-blue-500 mb-1">Bank BCA</p>
                             <p class="text-2xl font-black text-gray-900 font-poppins tracking-widest">1234567890</p>
-                            <p class="text-sm text-gray-500 mt-1">a.n. <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
+                            <p class="text-sm text-gray-500 mt-1">VA <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
+                        </div>
+                        <button @click="navigator.clipboard.writeText('1234567890'); copied = true; setTimeout(() => copied = false, 2500)"
+                                class="px-4 py-2.5 rounded-xl text-sm font-black transition-all duration-200 shadow-sm"
+                                :class="copied ? 'bg-green-500 text-white shadow-green-200' : 'bg-white text-blue-600 hover:bg-blue-50 border-2 border-blue-200'">
+                            <span x-show="!copied">📋 Salin</span>
+                            <span x-show="copied">✅ Tersalin!</span>
+                        </button>
+                    </div>
+                </div>
+                                </h2>
+                <div class="rounded-2xl p-4 border border-blue-100 mb-3" style="background: linear-gradient(135deg, #eff6ff, #f0f9ff);"
+                     x-data="{ copied: false }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-widest text-blue-500 mb-1">Bank BSI</p>
+                            <p class="text-2xl font-black text-gray-900 font-poppins tracking-widest">1234567890</p>
+                            <p class="text-sm text-gray-500 mt-1">VA <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
+                        </div>
+                        <button @click="navigator.clipboard.writeText('1234567890'); copied = true; setTimeout(() => copied = false, 2500)"
+                                class="px-4 py-2.5 rounded-xl text-sm font-black transition-all duration-200 shadow-sm"
+                                :class="copied ? 'bg-green-500 text-white shadow-green-200' : 'bg-white text-blue-600 hover:bg-blue-50 border-2 border-blue-200'">
+                            <span x-show="!copied">📋 Salin</span>
+                            <span x-show="copied">✅ Tersalin!</span>
+                        </button>
+                    </div>
+                </div>
+                                </h2>
+                <div class="rounded-2xl p-4 border border-blue-100 mb-3" style="background: linear-gradient(135deg, #eff6ff, #f0f9ff);"
+                     x-data="{ copied: false }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-widest text-blue-500 mb-1">Bank BTN</p>
+                            <p class="text-2xl font-black text-gray-900 font-poppins tracking-widest">1234567890</p>
+                            <p class="text-sm text-gray-500 mt-1">VA <span class="font-bold text-gray-700">Burger Kebab MAN</span></p>
                         </div>
                         <button @click="navigator.clipboard.writeText('1234567890'); copied = true; setTimeout(() => copied = false, 2500)"
                                 class="px-4 py-2.5 rounded-xl text-sm font-black transition-all duration-200 shadow-sm"
@@ -217,7 +362,12 @@
 
                     {{-- Preview --}}
                     @if($paymentProof)
-                        <div class="mt-4 flex items-center gap-4 p-4 rounded-2xl" style="background: linear-gradient(135deg, #f9fafb, #f3f4f6);">
+                        <div class="mt-4 flex items-center gap-4 p-4 rounded-2xl relative" style="background: linear-gradient(135deg, #f9fafb, #f3f4f6);">
+                            <button type="button" wire:click="$set('paymentProof', null)" @click="$refs.fileInput.value = null"
+                                    class="absolute -top-2 -right-2 w-7 h-7 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-md transition-all text-xs"
+                                    title="Batalkan file ini">
+                                ❌
+                            </button>
                             <img src="{{ $paymentProof->temporaryUrl() }}" alt="Preview" class="h-20 w-20 object-cover rounded-xl shadow-md">
                             <div class="flex-1">
                                 <p class="text-sm font-bold text-gray-700">✅ Bukti siap diupload</p>
